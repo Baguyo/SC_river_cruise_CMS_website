@@ -561,9 +561,8 @@ a:hover{
 
 .login{
     text-align: center;
-    /* margin-top: 100px; */
     padding: 50px;
-    background-color: #f7f7f7;
+    
 }
 .form-login{
     margin-top: 100px;
@@ -600,4 +599,27 @@ a:hover{
     background-size: 70%;
     background-repeat: no-repeat;
     height: 500px;
+}
+
+.date-picker-icon{
+    position: fixed;
+    top: 180px;
+    right: 0;
+    z-index: 9999;   
+}
+
+#datepicker{
+    border-radius: 5px;
+    padding: 20px;
+    position: fixed;
+    top: 220px;
+    right: 0;
+    z-index: 9999999;   
+    box-shadow: 2px 1px 3px 1px black;                
+}
+
+
+#datepicker table tbody tr td.disabled, .datepicker table tbody tr td.disabled{
+    background-color: red;
+    color: white;
 }

@@ -125,7 +125,7 @@
 
                         $.ajax({
                             type: "POST",
-                            url: "mail.php",
+                            url: "reservation.php",
                             dataType: 'script',
                             contentType : false,
                             processData: false,

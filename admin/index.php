@@ -170,3 +170,19 @@
 
     
 <?php  require_once "includes/footer.php" ?>
+<script>
+    $(document).ready(function () {
+        
+        <?php 
+        
+            $select_not_mailed_stmt = $connection->query("SELECT * FROM admin_reservation WHERE Mailed = 'No' ");
+            while($row = $select_not_mailed_stmt->fetch_assoc()){
+
+                echo "toastr.warning(' {$row['email']} not been mailed ');";
+
+            }
+
+        ?>
+
+    });
+</script>

@@ -37,7 +37,17 @@
                           Dashboard</a>
                         </li>
 
+                        <li class="nav-item component">
+                          <a class="nav-link " href="booking.php" >
+                            <i class="fas fa-book-open"></i>    
+                          SC Booking</a>
+                        </li>
 
+                        <li class="nav-item component">
+                          <a class="nav-link " href="queries.php" >
+                            <i class="fas fa-phone-volume"></i>    
+                          SC QUERIES</a>
+                        </li>
                         
                         <!-- HOME-PAGE -->
                         <li class="nav-item component">

@@ -41,10 +41,10 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
-                                    <div class="form-group">
-                                        <label for="my-input">Date of arrival:</label>
-                                        <input id="custom_date_of_arrival" class="form-control input" type="date" name="date_of_arrival" required>
-                                    </div>
+                                <div class="form-group">
+                                                                  <label for="my-input">Date of arrival</label>
+                                                                  <input type="text" class="form-control datepicker-service" placeholder="Date of Arrival" id="date_of_arrival" required name="date_of_arrival" autocomplete="off">
+                                                                </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group">
@@ -68,6 +68,13 @@
         <?php require_once "includes/footer.php" ?>
         <script>
             $(document).ready(function () {
+
+                $(".datepicker-service").datepicker({
+        datesDisabled: [ <?= "'" . implode("','", $dates) . "'" ?> ],
+                    orientation: "bottom",
+                    autoclose: true,
+                });
+
                 $("#customReservationForm").submit(function (e) { 
                     e.preventDefault();
 
@@ -80,7 +87,7 @@
                     var contact_number = $("input[name='contact_number']");
                     var number_of_guest = $("input[name='number_of_guest']");
                     var date_of_arrival = $("input[name='date_of_arrival']");
-                    var service = $("select[name='type_of_service']").val();
+                    var service = $("#custom_type_of_service").val();
 
                     
 
@@ -94,7 +101,7 @@
 
                     $.ajax({
                         type: "POST",
-                        url: "mail.php",
+                        url: "reservation.php",
                         dataType: 'script',
                         contentType : false,
                         processData: false,

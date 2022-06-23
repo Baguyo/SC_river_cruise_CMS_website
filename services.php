@@ -58,7 +58,7 @@
 
         
         
-            <div class="container justify-content-center mt-2 " >
+            <div class=" justify-content-center mt-2  text-center" >
                 <div class="col-lg-12 services-block">
                     <ul class="nav nav-pills nav-justified  mb-3" id="pills-tab" role="tablist">
                         <li class="nav-item">
@@ -373,11 +373,15 @@
                                                                     <label for="my-input">Number of guest</label>
                                                                     <input id="number_of_guest3" class="form-control input" type="number" name="number_of_guest">
                                                                 </div>
+
                                                                 <div class="form-group">
-                                                                    <label for="my-input">Date of arrival</label>
-                                                                    <input id="date_of_arrival3" class="form-control input" type="date" name="date_of_arrival">
+                                                                  <label for="my-input">Date of arrival</label>
+                                                                  <input type="text" class="form-control datepicker-service" placeholder="Date of Arrival" id="date_of_arrival" required name="date_of_arrival" autocomplete="off">
                                                                 </div>
+
+                                  
                                                                 <div class="form-group">
+                                                                  <label for="">Service</label>
                                                                     <select class="form-control" name="type_of_service" id="type_of_service3"  style="width: 100%;">
                                                                           <option value=""> --SELECT-- </option>
                                                                         <?php 
@@ -401,6 +405,14 @@
 <?php require_once "includes/footer.php" ?>
 <script>
     $(document).ready(function () {
+
+      $(".datepicker-service").datepicker({
+        datesDisabled: [ <?= "'" . implode("','", $dates) . "'" ?> ],
+                    orientation: "bottom",
+                    autoclose: true
+
+                });
+
       $(".sendReservationForm").submit(function (e) { 
         e.preventDefault();
 
@@ -427,7 +439,7 @@
 
           $.ajax({
             type: "POST",
-            url: "mail.php",
+            url: "reservation.php",
             dataType: 'script',
             contentType : false,
             processData: false,

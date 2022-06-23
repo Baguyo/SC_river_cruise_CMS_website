@@ -19,6 +19,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/solid.min.css" >
 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" integrity="sha512-mSYUmp1HYZDFaVKK//63EcZq4iFWFjxSL+Z3T/aCt4IO9Cejm03q3NKKYN6pFQzY0SBOr8h+eCIAZHPXcpZaNw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="css/main.css">
         <style>
             <?php 
@@ -39,6 +40,7 @@
                 }
                 // $stmt_select_carousel_intro->close();
             ?>
+            
 
             
 
@@ -58,6 +60,24 @@
         <!-- MESSAGE PLUGIN -->
         <script src="https://apps.elfsight.com/p/platform.js" defer></script>
         <div class="elfsight-app-ba8a0a51-425c-45e1-9207-d23c787c4afb"></div>
+
+
+        <!-- calendar datepicker start here -->
+        <div class="date-picker-icon">
+             <a href="" class="btn btn-primary date-picker-btn" title="View calendar reservation">
+                <i class="fas fa-calendar-check fa-lg"></i>
+             </a>   
+         </div>
+
+         <div class="date-picker-container">
+             <div id="datepicker" class="bg-white">                 
+                <h5>Calendar reservation</h5>
+             </div>
+         </div>
+         <!-- calendar datepicker end here -->
+
+
+
 
         <div class="home-content">
             <div class="container-fluid">
@@ -203,7 +223,15 @@
                             <!-- <label>
                                 <i class="fa fa-calendar"></i>
                             </label> -->
-                            <input type="date" class="form-control input" placeholder="Date of Arrival" id="date_of_arrival" required name="date_of_arrival">
+                            <div class="input-group date datepicker-custom">
+                            <input type="text" class="form-control" placeholder="Date of Arrival" id="date_of_arrival" required name="date_of_arrival" autocomplete="off">
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="my-addon">
+                                    <i class="fas fa-calendar-check fa-lg"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            
                           </div>
 
                           <div class="form-group col-lg-3 col-md-3 col-sm-12 mt-2">
@@ -442,6 +470,12 @@
 <?php require_once "includes/footer.php" ?>
 <script>
     $(document).ready(function () {
+
+        $(".datepicker-custom").datepicker({
+            datesDisabled: [ <?= "'" . implode("','", $dates) . "'" ?> ],
+            autoclose: true,
+                });
+
       $("#quickReservation").submit(function (e) { 
         e.preventDefault();
 
@@ -468,7 +502,7 @@
 
           $.ajax({
             type: "POST",
-            url: "mail.php",
+            url: "reservation.php",
             dataType: 'script',
             contentType : false,
             processData: false,
@@ -495,6 +529,101 @@
         
         
       });
+
+        
+      window.addEventListener("scroll", function(){
+    
+    let homeNav = document.querySelector("#navbar")
+    if(this.window.scrollY > 30){
+        homeNav.classList.remove("navbar-dark");
+        homeNav.classList.add("navbar-scroll");
+        homeNav.classList.add("navbar-light");
+        
+        
+    }else{
+        homeNav.classList.remove("navbar-scroll");
+        homeNav.classList.remove("navbar-light");
+        homeNav.classList.add("navbar-dark");
+
+    }
+    
+    descriptionBlockAnimation();
+    homeActivitiesAnimation();
+    
+})
+// let homeNav = document.querySelector("#navbar")
+// var innerWidth = window.innerWidth;
+// if(innerWidth <= 768){
+//     homeNav.classList.remove("fixed-top")
+//     homeNav.classList.remove("navbar-dark")
+//     homeNav.style.backgroundColor = "white";
+//     homeNav.style.color= "black";
+//     homeNav.classList.add("navbar-light")
+// }
+
+
+
+
+
+
+
+
+function descriptionBlockAnimation(){
+    let content = document.querySelector(".description-icon");
+    let contentPosition = content.getBoundingClientRect().top;
+    let descriptionTitle = document.querySelector(".description-title");
+    let screenPosition = window.innerHeight;
+    if(contentPosition < screenPosition){
+        content.classList.add('animation');
+        descriptionTitle.style.animation = "entrance 500ms ease-in";
+    }
+    else{
+        content.classList.remove('animation');
+        descriptionTitle.style.animation = null;
+    }
+}
+
+function homeActivitiesAnimation(){
+    let homeActivities = document.querySelector(".home-activities");
+    let homeActivitiesPosition = homeActivities.getBoundingClientRect().top;
+    let cards = document.querySelectorAll(".card-animation");
+    let screenPosition = window.innerHeight;
+    if(homeActivitiesPosition < screenPosition){
+        // for(let x = 0; x <=cards.length; x+=1){
+        //     setInterval(() => {
+        //         cards[x].classList.add("animation");            
+        //     }, 1000);
+        // }        
+            var x = 0;
+            setInterval(() => {
+                if(x < cards.length){
+                    cards[x].classList.add("animation");            
+                }                
+                x++;
+            }, 700);
+            
+    }
+    else{
+            for(let x = 0; x <cards.length; x+=1){
+                cards[x].classList.remove('animation');
+            }
+    }
+
+}
+// let cards = document.querySelectorAll(".card-animation");
+// for(let x = 0; x <=cards.length; x+=1){
+//     cards[x].classList.add("animation");    
+// }
+// cards[0].classList.add("animation");
+
+// var inputs = document.querySelectorAll(".input");
+//     for(var x = 0; x<=inputs.length; x++){
+//         inputs[x].addEventListener("click", function(){
+//             changePlaceholder(this);
+//         })
+//     }
+
+
 
         
     });
